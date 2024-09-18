@@ -1,20 +1,21 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const botaoSortear = document.getElementById("sortearNumeros");
-    const numerosSorteadosElement = document.getElementById("numerosSorteados");
+function sortearNumeros() {
+    const resultadoElement = document.getElementById('resultado');
+    const numerosSorteados = new Set();
+    let resultadoString = "";
 
-    function sortearNumerosMegaSena() {
-        let numerosSorteados = [];
-        while (numerosSorteados.length < 6) {
-            let numeroAleatorio = Math.floor(Math.random() * 60) + 1;
-            if (!numerosSorteados.includes(numeroAleatorio)) {
-                numerosSorteados.push(numeroAleatorio);
-            }
-        }
-        return numerosSorteados;
+    while (numerosSorteados.size < 6) {
+        const numero = Math.floor(Math.random() * 60) + 1;
+        numerosSorteados.add(numero);
     }
 
-    botaoSortear.addEventListener("click", function() {
-        let numeros = sortearNumerosMegaSena();
-        numerosSorteadosElement.textContent = numeros.join(" - ");
-    });
-});
+    let primeiro = true;
+    for (const numero of numerosSorteados) {
+        if (!primeiro) {
+            resultadoString += ", ";
+        }
+        resultadoString += numero;
+        primeiro = false;
+    }
+
+    resultadoElement.textContent = "Números sorteados: " + resultadoString;
+}
